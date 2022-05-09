@@ -1,14 +1,25 @@
 import React from 'react';
 
-export const List = ({ title }) => {
+const LANGUAGES = [
+  'JavaScript',
+  'C++',
+  'Ruby',
+  'Java',
+  'PHP',
+  'Go',
+];
 
+export const List = () => {
   return (
-    <>
-      <h4>{title}</h4>
-      <div>リストです</div>
-    </>
+    <div>
+      {
+        LANGUAGES.map((lang, index)=>{
+          // JSX記法ではkey(一意)を書く必要がある
+          return <div key={index}>{ lang }</div>
+        })
+
+      }
+    </div>
   )
 }
-
-
 
