@@ -1,25 +1,25 @@
-import React from 'react';
+import styled from 'styled-components';
+import { TabBodyContainer } from './components/tab-body-container';
 
-const LANGUAGES = [
-  'JavaScript',
-  'C++',
-  'Ruby',
-  'Java',
-  'PHP',
-  'Go',
-];
+const ListItem = styled.div`
+  padding: 8px 16px;
 
-export const List = () => {
+  &:nth-child(n+2){
+    border-top: 1px solid #D9DBDE;
+  }
+`
+
+export const List = ({ langs }) => {
+
   return (
-    <div>
+    <TabBodyContainer title="取り扱い言語リスト">
       {
-        LANGUAGES.map((lang, index)=>{
+        langs.map((lang, index)=>{
           // JSX記法ではkey(一意)を書く必要がある
-          return <div key={index}>{ lang }</div>
+          return <ListItem key={index}>{ lang }</ListItem>
         })
 
       }
-    </div>
+    </TabBodyContainer>
   )
-}
-
+};
