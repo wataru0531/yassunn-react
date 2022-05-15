@@ -1,50 +1,44 @@
+import styled from 'styled-components';
 import React from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { List } from "./List";
+import { Form } from './Form';
+import { getLanguage } from './const/languages';
+import { widthLoading } from './hoc/widthLoading';
+import { Modal } from './components/modal';
+import { Header } from './Header';
+import { ThemeContext } from './contexts/ThemeContext';
 
-import { useState } from 'react';
-import { List } from "./list";
+const Container = styled.div`
+  height: 100%;
+  color: ${({ theme }) => theme.color};
+  background-color: ${({ theme }) => theme.backgroundColor};
+`
 
+function App( { data } ) {
+  const [tab, setTab] = useState('list');
+  const [langs , setLangs] = useState(data);
 
-function App() {
-  const [description, setDescription] = useState('クリック前の表示');
-  // console.log(setDescription);
-  const changeDescription = () => {
-    setDescription('クリック後の表示');
-  }
+  const [theme] = useContext(ThemeContext);
+
+  const addLang = (lang) => {
+    // langにはフォームの値が入る
+    // langsの配列にlangを追加する
+    setLangs([...langs, lang]);
+    // 表示をlistに切り替える
+    setTab('list');
+  };
 
   return (
-    <div>
-      { description }
+    <Container theme={theme}>
+      <Header tab={tab} setTab={setTab} />
 
-      <List title="取り扱い言語一覧" />
-      <button onClick={ changeDescription }>ボタン</button>
-    </div>
+      {
+        tab === 'list' ? <List langs={langs} /> : <Form onAddLang={addLang} />
+      }
+
+    </Container>
   );
 }
-
-// class App extends React.Component{
-//   constructor(props){
-//     super(props);
-//     this.state = { description: 'クリック前の表示' }
-//   }
-
-//   changeDescription(){
-//     this.setState({
-//       description: 'クリック後の表示です'
-//     })
-//   }
-
-//   render(){
-//     const { description } = this.state;
-//     return (
-//       <div>
-//         { description }
-//         <List title="取扱言語一覧" />
-//         <button onClick={() => { this.changeDescription() }}>ボタン</button>
-//       </div>
-//     )
-//   }
-// }
-
-
 
 export default App;

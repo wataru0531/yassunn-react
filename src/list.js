@@ -1,28 +1,25 @@
-import React from 'react';
+import styled from 'styled-components';
+import { TabBodyContainer } from './components/tab-body-container';
 
-export const List = ({ title }) => {
+const ListItem = styled.div`
+  padding: 8px 16px;
+
+  &:nth-child(n+2){
+    border-top: 1px solid #D9DBDE;
+  }
+`
+
+export const List = ({ langs }) => {
 
   return (
-    <>
-      <h4>{title}</h4>
-      <div>リストです</div>
-    </>
+    <TabBodyContainer title="取り扱い言語リスト">
+      {
+        langs.map((lang, index)=>{
+          // JSX記法ではkey(一意)を書く必要がある
+          return <ListItem key={index}>{ lang }</ListItem>
+        })
+
+      }
+    </TabBodyContainer>
   )
-}
-
-
-
-// export class List extends React.Component{
-//   render(){
-//     const { title } = this.props;
-
-//     return (
-//       <div>
-//         <h4>{ title }</h4>
-//         <div>リストです</div>
-//       </div>
-//     )
-//   }
-// }
-
-
+};
